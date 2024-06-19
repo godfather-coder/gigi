@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Pools from './component/pages/Polls';
+import Sports from './component/pages/Sports';
+import Fitness from './component/pages/Fitness';
+import Navbar from "./component/navbar/Navbar.jsx"
+import Home from "./component/pages/Home.jsx"
+import Login from "./component/pages/Login.jsx"
+import SignUp from "./component/pages/SignUp.jsx"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UserProfile from './component/pages/Profile.jsx';
+import Footer from './component/pages/footer.jsx';
+import UploadPool from './component/pages/upload/UploadPools.jsx'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/pools' element={<Pools />} />
+          <Route path='/sports' element={<Sports />} />
+          <Route path='/fitness' element={<Fitness />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/me' element={<UserProfile />} />
+          <Route path ='/uploadPool' element={<UploadPool/>}/>
+        </Routes>
+        <Footer />
+        <ToastContainer />
+      </div>
+    </Router>
   );
 }
 
