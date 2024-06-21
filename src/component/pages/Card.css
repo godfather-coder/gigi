@@ -5,6 +5,13 @@
     background-color: #f9f9f9;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    overflow: auto;
+    cursor: pointer;
+}
+.card:hover{
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .card h3 {
@@ -34,9 +41,16 @@
 .images {
     width: 100px;
 }
-
+@media (max-width: 640px) { 
+    .cardivhor {  
+        column-gap: 20px;
+    }
+    .images{
+        margin-left: 20px;
+    }
+ }
 .cardivhor {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto auto;   
+    column-gap: 3rem;
 }
