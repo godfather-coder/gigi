@@ -1,27 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-
+import { DataContext } from '../../context/DataContext';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { data } = useContext(DataContext)
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  const [isKeyExists, setIsKeyExists] = useState(false);
-
-  useEffect(() => {
-    const item = localStorage.getItem('myKey');
-    if (item) {
-      setIsKeyExists(true);
-    } else {
-      setIsKeyExists(false);
-    }
-    console.log(isKeyExists)
-  }, [isKeyExists,setIsKeyExists]);
 
   return (
-    <nav className="navbar">
+    <nav key='123' className="navbar">
       <div className="navbar-brand">
         <Link to="/">Service Sales Platform</Link>
         <button className="navbar-toggle" onClick={toggleMenu}>
@@ -41,8 +30,11 @@ const Navbar = () => {
         <li className="navbar-item">
           <Link to="/fitness" onClick={toggleMenu}>Fitness</Link>
         </li>
-        {isKeyExists ? (
+        {data ? (
           <div>
+            <li className="navbar-item">
+              <Link to="/me" onClick={toggleMenu}>Profile</Link>
+            </li>
           </div>
         ) : (
           <>

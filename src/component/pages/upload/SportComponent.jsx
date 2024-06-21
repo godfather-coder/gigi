@@ -12,8 +12,8 @@ const PoolForm = () => {
     price: 0,
     location: '',
     links: [''],
+    spaces: [''],
     description:"",
-    spaces:0
   });
 
   const handleChange = (e) => {
@@ -32,11 +32,24 @@ const PoolForm = () => {
       links: newLinks,
     });
   };
-
+  const handlespaceChange = (index, e) => {
+    const newLinks = [...pool.spaces];
+    newLinks[index] = e.target.value;
+    setPool({
+      ...pool,
+      spaces: newLinks,
+    });
+  };
   const handleAddLink = () => {
     setPool({
       ...pool,
       links: [...pool.links, ''],
+    });
+  };
+  const handleAdd = () => {
+    setPool({
+      ...pool,
+      spaces: [...pool.spaces, ''],
     });
   };
 
@@ -48,31 +61,40 @@ const PoolForm = () => {
       links: newLinks,
     });
   };
+  const handleRemoveSp = (index) => {
+    const newLinks = [...pool.spaces];
+    newLinks.splice(index, 1);
+    setPool({
+      ...pool,
+      spaces: newLinks,
+    });
+  };
 
   const handleSubmit =async (e) => {
     e.preventDefault();
     console.log(pool);
+
     try {
-      const docRef = await addDoc(collection(db, 'pools'), pool);
+      const docRef = await addDoc(collection(db, 'complexs'), pool);
       console.log('Document written with ID: ', docRef.id);
-      toast.success('pool added!');
+      toast.success('complex added!');
     } catch (e) {
       console.error('Error adding document: ', e);
     }
     setPool({
-      price: 0,
-      location: '',
-      links: [''],
-      description:"",
-      spaces:0
+        price: 0,
+        location: '',
+        links: [''],
+        spaces: [''],
+        description:"",
     });
 
   };
 
   return (
     <div className="form-container">
-      <Link to="/pools">Pools</Link>
-      <h2>Upload Pool Listing</h2>
+      <Link to="/sports">Sports</Link>
+      <h2>Upload Sport Complex Listing</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Price:
@@ -80,17 +102,6 @@ const PoolForm = () => {
             type="number"
             name="price"
             value={pool.price}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <br />
-        <label>
-        Spaces:
-          <input
-            type="number"
-            name="spaces"
-            value={pool.spaces}
             onChange={handleChange}
             required
           />
@@ -119,7 +130,7 @@ const PoolForm = () => {
         </label>
         <br />
         <label>
-          Links:
+          Photos:
           {pool.links.map((link, index) => (
             <div key={index} className="link-input-container">
               <input
@@ -141,10 +152,41 @@ const PoolForm = () => {
             </div>
           ))}
           <button type="button" onClick={handleAddLink} className="add-link-button">
-            Add Link
+            Add Photo
           </button>
         </label>
         <br />
+
+
+        <label>
+          Spaces:
+          {pool.spaces.map((link, index) => (
+            <div key={index} className="link-input-container">
+              <input
+                type="text"
+                value={link}
+                onChange={(e) => handlespaceChange(index, e)}
+                placeholder={`Space ${index + 1}`}
+                required
+              />
+              {index > 0 && (
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSp(index)}
+                  className="remove-link-button"
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          ))}
+          <button type="button" onClick={handleAdd} className="add-link-button">
+            Add Sport Space
+          </button>
+        </label>
+        <br />
+
+
         <button type="submit" className="upload-button">Upload</button>
       </form>
     </div>

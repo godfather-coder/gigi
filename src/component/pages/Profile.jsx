@@ -1,10 +1,13 @@
-import { React, useEffect, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+import Cookies from "js-cookie";
+import { DataContext } from "../../context/DataContext";
+
 function Profile() {
     const [userDetails, setUserDetails] = useState(null);
-
+    const { setData} = useContext(DataContext)
 
     const fetchUserData = async () => {
         auth.onAuthStateChanged(async (user) => {
@@ -12,7 +15,8 @@ function Profile() {
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 setUserDetails(docSnap.data());
-                localStorage.setItem('myKey', JSON.stringify(docSnap.data()))
+                Cookies.set('myKey', JSON.stringify(docSnap.data()))
+                setData(true)
             } else {
                 console.log("User is not logged in");
             }
@@ -25,9 +29,10 @@ function Profile() {
     async function handleLogout() {
         try {
             await signOut(auth);
-            localStorage.removeItem('myKey');
+            Cookies.remove('myKey');
             window.location.href = "/login";
             console.log("User logged out successfully!");
+            setData(false)
         } catch (error) {
             console.error("Error logging out:", error.message);
         }
@@ -42,8 +47,11 @@ function Profile() {
                     <h3>Welcome {userDetails.firstname} 🙏🙏</h3>
                     <div>
                         <p>Email: {userDetails.email}</p>
-                        <p>First Name: {userDetails.firstname}</p>
-                        <p>Last Name: {userDetails.lastname}</p>
+                        <p>Name: {userDetails.firstname}</p>
+                        {console.log(userDetails.lastname)}
+                        {userDetails.lastname != undefined ?
+                        (<p>Last Name: {userDetails.lastname}</p>):(<></>)}
+                        
                     </div>
                     <button className="btn btn-primary" onClick={handleLogout}>
                         Logout

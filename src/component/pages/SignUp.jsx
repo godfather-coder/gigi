@@ -58,7 +58,7 @@ const SignUp = () => {
                     })
                 }
                 Cookies.set('authToken', user.accessToken, { expires: 7 });
-                navigate('/');
+                navigate('/me');
             } catch (error) {
                 console.log(error)
                 toast.error(error.message, {

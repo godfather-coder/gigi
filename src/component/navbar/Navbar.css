@@ -5,6 +5,7 @@
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
+  height: 10vh;
 }
 
 .navbar-brand {
@@ -47,7 +48,6 @@
   background-color: #555;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   .navbar-toggle {
     display: block;

@@ -1,5 +1,7 @@
 import {React, useEffect} from 'react';
 import './Footer.css'; 
+import { Link } from 'react-router-dom';
+
 
 const Footer = () => {
 
@@ -19,7 +21,7 @@ const Footer = () => {
               <li>Email: contact@example.com</li>
               <li>Phone: +1 234 567 890</li>
               <li>Address: 123 Street, City, Country</li>
-              <li>Address: 123 Street, City, </li>
+              <li><Link to='/contact'>Contac Us</Link></li>
             </ul>
           </div>
         </div>

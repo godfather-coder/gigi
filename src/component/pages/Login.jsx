@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import './Login.css';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import SignInWithGoogle from './signInWithGoogle';
 
 const Login = () => {
   const [errors, setErrors] = useState({});
@@ -80,6 +81,7 @@ const Login = () => {
           {errors.password && <span className="error">{errors.password}</span>}
         </div>
         <button type="submit">Login</button>
+        <SignInWithGoogle/>
       </form>
     </div>
   );

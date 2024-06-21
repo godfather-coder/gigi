@@ -11,15 +11,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import UserProfile from './component/pages/Profile.jsx';
 import Footer from './component/pages/footer.jsx';
 import UploadPool from './component/pages/upload/UploadPools.jsx'
+import PoolDetail from './component/pages/PoolDetail.jsx';
+import ContactForm from './component/pages/ContactForm.jsx';
+import UploadSportComponent from './component/pages/upload/SportComponent.jsx';
 
 function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div style={{height:'100%'}}>
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path="/pool/:id" element={<PoolDetail />} />
           <Route path='/pools' element={<Pools />} />
           <Route path='/sports' element={<Sports />} />
           <Route path='/fitness' element={<Fitness />} />
@@ -27,6 +31,8 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/me' element={<UserProfile />} />
           <Route path ='/uploadPool' element={<UploadPool/>}/>
+          <Route path ='/uploadSport' element={<UploadSportComponent/>}/>
+          <Route path ='/contact' element = {<ContactForm/>}/>
         </Routes>
         <Footer />
         <ToastContainer />
